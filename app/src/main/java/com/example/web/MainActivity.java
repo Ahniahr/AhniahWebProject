@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -12,10 +13,14 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class MainActivity extends AppCompatActivity {
-    ImageButton btnrefresh,  btnmic,searchbtn, back;
+    ImageButton btnrefresh, btnmic, searchbtn, back;
     ImageButton more, forward, stop, refbtn, home, btnBookmarks;
     Button btnTVForTab;
     EditText edittexturl;
@@ -98,18 +103,93 @@ public class MainActivity extends AppCompatActivity {
                         if (address.contains(".com") || address.contains(".net") || address.contains(".in")) {
                             webView.loadUrl(address);
                         } else {
-                            webView.loadUrl("https://www.google.com/search?q="+address.replace("http","").replace("http",""));
+                            webView.loadUrl("https://www.google.com/search?q=" + address.replace("http", "").replace("http", ""));
                         }
-                    }else {
-                        if (address.contains("com")|| address.contains(".net") ||address.contains(".in")){
-                            webView.loadUrl("http://"+address);
+                    } else {
+                        if (address.contains("com") || address.contains(".net") || address.contains(".in")) {
+                            webView.loadUrl("http://" + address);
 
-                    }else {
-                        webView.loadUrl("https://www.google.com/search?q="+address.replace("http","").replace("http",""));
+                        } else {
+                            webView.loadUrl("https://www.google.com/search?q=" + address.replace("http", "").replace("http", ""));
+                        }
+
                     }
+                }
+            }
+        });
 
-                }
-                }
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialog sheetDialog = new BottomSheetDialog(MainActivity.this,R.style.BottomsheetDialogTheme);
+                View sheetView = LayoutInflater. from (getApplicationContext()) .inflate(R.layout.recorderdialog,(LinearLayout)findViewById(R.id.dialog_container));
+                sheetView.findViewById(R.id.filemenucancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sheetDialog.dismiss();
+                    }
+                });
+                sheetView.findViewById(R.id.refresh).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        webView.reload();
+                        Toast.makeText(MainActivity.this, " history Refresh",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                sheetView.findViewById(R.id.history).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this, "history",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                sheetView.findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this, "setting",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                sheetView.findViewById(R.id.Favorite).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this, "Favorite",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                sheetView.findViewById(R.id.Download).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this, "Download",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                sheetView.findViewById(R.id.Desktop).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this, "Desktop Mode",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                sheetView.findViewById(R.id.Scanandbar).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this, "Scan and Code",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                sheetView.findViewById(R.id.Exit).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this, "Exit",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                sheetView.findViewById(R.id.Developer).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this, "Developer",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                sheetDialog.setContentView(sheetView);
+                sheetDialog.show();
+
+
             }
         });
 
