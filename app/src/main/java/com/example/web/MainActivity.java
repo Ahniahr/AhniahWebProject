@@ -2,10 +2,12 @@ package com.example.web;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -192,6 +194,62 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+            btnTVForTab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(MainActivity.this, " btnTVForTab",Toast.LENGTH_SHORT).show();
+                }
+            });
+            btnrefresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    edittexturl.selectAll();
+                    edittexturl.setText("");
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+                    edittexturl.requestFocus();
+                }
 
+
+
+            });
+
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (webView.canGoBack()){
+                        webView.goBack();
+
+
+                    }
+                }
+            });
+            forward.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (webView.canGoForward()){
+                        webView.goBack();
+                    }
+                }
+            });
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               webView.stopLoading();
+            }
+        });
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                webView.loadUrl("https://google.com");
+            }
+        });
+        btnBookmarks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, " Bookmark ",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 }
